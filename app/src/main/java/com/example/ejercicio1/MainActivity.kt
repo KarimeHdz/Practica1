@@ -41,7 +41,7 @@ fun Content() {
         textAlign = TextAlign.Center,
         modifier = Modifier
             .padding()
-            .background(Color.Blue)
+            .background(Color.Green)
     )
 }
 
