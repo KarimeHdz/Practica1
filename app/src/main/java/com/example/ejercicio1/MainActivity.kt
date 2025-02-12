@@ -88,7 +88,7 @@ fun TextFieldKeyboard(){
             label = { Text("Numero") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
-        Text("introduce tu numero: $text")
+        Text("introduce tu numero telefonico: $text")
     }
 
 }
