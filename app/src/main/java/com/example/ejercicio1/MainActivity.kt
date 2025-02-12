@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -91,4 +95,42 @@ fun TextFieldKeyboard(){
         Text("introduce tu numero telefonico: $text")
     }
 
+}
+
+@Composable
+fun TextFieldSample(){
+    var text by remember {mutableStateOf("")}
+    Column{
+        OutlinedTextField(
+            value = text,
+            label = { Text("Enter Your Name") },
+            onValueChange = { text = it},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
+        Text("Tu nombre es: $text")
+    }
+
+}
+
+@Composable
+fun TextFieldWithIcons() {
+    var text by remember { mutableStateOf("") }
+    Column {
+         OutlinedTextField(
+            value = text,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Email,
+                    contentDescription = "emailIcon"
+                )
+            },
+            //trailingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = null) },
+            onValueChange = {
+                text = it
+            },
+            label = { Text(text = "Email address") },
+            placeholder = { Text(text = "Enter your e-mail") },
+        )
+        Text("El correo es:  $text")
+    }
 }
