@@ -35,6 +35,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.ui.layout.ContentScale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +74,7 @@ fun GreetingPreview() {
 fun SimpleImage() {
     Image(
         painter = painterResource(id = R.drawable.fondo),
-        contentDescription = "Fondo",
+        contentDescription = "Andy Rubin",
         modifier = Modifier.fillMaxWidth()
     )
 }
@@ -97,7 +98,7 @@ fun TextFieldWithInputType2() {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     TextField(
         value = text,
-        label = { Text(text = "Valor 1") },
+        label = { Text(text = "Valor 2") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         onValueChange = { it ->
             text = it
