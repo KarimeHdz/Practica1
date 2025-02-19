@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,6 +36,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.layout.ContentScale
 
 class MainActivity : ComponentActivity() {
@@ -52,80 +54,78 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    var numero1 by remember { mutableStateOf(TextFieldValue("")) }
+    var numero2 by remember { mutableStateOf(TextFieldValue("")) }
+    var resultado by remember { mutableStateOf(0) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.LightGray),
-        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Imagen en la parte superior con tamaño adecuado
-        SimpleImage(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp) // Ajusta la altura según sea necesario
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.foto),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Campo de texto 1
+        TextField(
+            value = numero1,
+            onValueChange = { numero1 = it },
+            label = { Text(text = "Valor 1") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campos de texto y botón
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        // Campo de texto 2
+        TextField(
+            value = numero2,
+            onValueChange = { numero2 = it },
+            label = { Text(text = "Valor 2") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth(0.8f)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Botón para calcular
+        Button(
+            onClick = {
+                val num1 = numero1.text.toIntOrNull() ?: 0
+                val num2 = numero2.text.toIntOrNull() ?: 0
+                resultado = num1 + num2
+            },
+            modifier = Modifier.padding(8.dp)
         ) {
-            TextFieldWithInputType()
-            Spacer(modifier = Modifier.height(16.dp))
-            TextFieldWithInputType2()
-            Spacer(modifier = Modifier.height(16.dp))
-            SimpleButton()
+            Text(text = "Calcular")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Mostrar resultado
+        Text(
+            text = "Resultado: $resultado",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
-@Composable
-fun SimpleImage(modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(id = R.drawable.foto),
-        contentDescription = "foto",
-        modifier = modifier,
-        contentScale = ContentScale.Crop // Ajusta la imagen para cubrir sin deformarse
-    )
-}
 
-@Composable
-fun TextFieldWithInputType() {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    TextField(
-        value = text,
-        label = { Text(text = "Valor 1") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = { it ->
-            text = it
-        }
 
-    )
-}
 
-@Composable
-fun TextFieldWithInputType2() {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    TextField(
-        value = text,
-        label = { Text(text = "Valor 2") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        onValueChange = { it ->
-            text = it
-        }
-    )
-}
-@Composable
-fun SimpleButton() {
-    Button(onClick = {
-        //your onclick code here
-    }
-    ) {
-        Text(text = "Calcular")
-    }
-}
+
+
+
+
