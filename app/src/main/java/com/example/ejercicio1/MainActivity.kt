@@ -55,27 +55,42 @@ fun GreetingPreview() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
             .background(Color.LightGray),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SimpleImage()
+        // Imagen en la parte superior con tamaño adecuado
+        SimpleImage(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(250.dp) // Ajusta la altura según sea necesario
+        )
+
         Spacer(modifier = Modifier.height(16.dp))
-        TextFieldWithInputType()
-        Spacer(modifier = Modifier.height(16.dp))
-        TextFieldWithInputType2()
-        Spacer(modifier = Modifier.height(16.dp))
-        SimpleButton()
+
+        // Campos de texto y botón
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TextFieldWithInputType()
+            Spacer(modifier = Modifier.height(16.dp))
+            TextFieldWithInputType2()
+            Spacer(modifier = Modifier.height(16.dp))
+            SimpleButton()
+        }
     }
 }
 
 @Composable
-fun SimpleImage() {
+fun SimpleImage(modifier: Modifier = Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.fondo),
-        contentDescription = "Andy Rubin",
-        modifier = Modifier.fillMaxWidth()
+        painter = painterResource(id = R.drawable.foto),
+        contentDescription = "foto",
+        modifier = modifier,
+        contentScale = ContentScale.Crop // Ajusta la imagen para cubrir sin deformarse
     )
 }
 
