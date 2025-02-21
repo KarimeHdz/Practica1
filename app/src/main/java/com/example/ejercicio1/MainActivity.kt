@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -47,18 +50,16 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    var precio by remember { mutableStateOf(TextFieldValue("")) }
-    var descuento by remember { mutableStateOf(TextFieldValue("")) }
-    var precioFinal by remember { mutableStateOf(0.0) }
+    var numero1 by remember { mutableStateOf(TextFieldValue("")) }
+    var numero2 by remember { mutableStateOf(TextFieldValue("")) }
+    var resultado by remember { mutableStateOf(0) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.LightGray)
-            .padding(16.dp),
+            .background(Color.LightGray),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Imagen decorativa
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -72,45 +73,45 @@ fun GreetingPreview() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo para ingresar el precio del producto
+        // Campo de texto 1
         TextField(
-            value = precio,
-            onValueChange = { precio = it },
-            label = { Text(text = "Precio del producto") },
+            value = numero1,
+            onValueChange = { numero1 = it },
+            label = { Text(text = "Valor 1") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Campo para ingresar el porcentaje de descuento
+        // Campo de texto 2
         TextField(
-            value = descuento,
-            onValueChange = { descuento = it },
-            label = { Text(text = "Descuento (%)") },
+            value = numero2,
+            onValueChange = { numero2 = it },
+            label = { Text(text = "Valor 2") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para calcular el precio final con descuento
+        // Botón para calcular
         Button(
             onClick = {
-                val precioProducto = precio.text.toDoubleOrNull() ?: 0.0
-                val porcentajeDescuento = descuento.text.toDoubleOrNull() ?: 0.0
-                precioFinal = precioProducto - (precioProducto * (porcentajeDescuento / 100))
+                val num1 = numero1.text.toIntOrNull() ?: 0
+                val num2 = numero2.text.toIntOrNull() ?: 0
+                resultado = num1 + num2
             },
             modifier = Modifier.padding(8.dp)
         ) {
-            Text(text = "Calcular descuento")
+            Text(text = "Calcular")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Mostrar precio final
+        // Mostrar resultado
         Text(
-            text = "Precio final: $${"%.2f".format(precioFinal)}",
+            text = "Resultado: $resultado",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
